@@ -4,7 +4,7 @@ export type ApiError = {
   details?: any;
 };
 
-const DEFAULT_BASE_URL = 'http://127.0.0.1:5000';
+const DEFAULT_BASE_URL = 'https://api.carenexa.life';
 const USER_STORAGE_KEY = 'diet_app_user';
 
 function getBaseUrl() {
