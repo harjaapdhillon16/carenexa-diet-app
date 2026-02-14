@@ -33,18 +33,18 @@ export default function Home() {
               </Link>
             ) : (
               <Link
-                href="/sign-in"
+                href="/login"
                 className="rounded-md bg-blue-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-blue-500"
               >
                 Get Started
               </Link>
             )}
-            <Link
+            {/* <Link
               href="/diet-app"
               className="rounded-md bg-white px-6 py-3 text-lg font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 hover:bg-slate-50"
             >
               Try it out
-            </Link>
+            </Link> */}
           </div>
         </Container>
 
