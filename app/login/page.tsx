@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Container } from '@/components/Container';
 import { Header } from '@/components/Header';
 import { login } from '@/lib/api';
@@ -11,8 +11,7 @@ import { LoginResponse } from '@/lib/types';
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const next = searchParams.get('next') || '/dashboard';
+  const [nextPath, setNextPath] = useState('/dashboard');
   const { login: setAuthUser, user } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -21,10 +20,18 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (user?.id) {
-      router.replace(next);
+    const params = new URLSearchParams(window.location.search);
+    const candidate = params.get('next');
+    if (candidate) {
+      setNextPath(candidate);
     }
-  }, [user, next, router]);
+  }, []);
+
+  useEffect(() => {
+    if (user?.id) {
+      router.replace(nextPath);
+    }
+  }, [user, nextPath, router]);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -44,7 +51,7 @@ export default function LoginPage() {
         role: data.role,
         status: data.status
       });
-      router.replace(next);
+      router.replace(nextPath);
     } catch (err: any) {
       setError(err?.message || 'Login failed');
     } finally {
