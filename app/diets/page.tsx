@@ -181,7 +181,7 @@ export default function DietsPage() {
         const resolved = resolveBackendUrl(data.file_url);
         setPdfLinks((prev) => ({ ...prev, [id]: resolved }));
         const title = diets.find((diet) => diet.id === id)?.title;
-        await triggerDownload(resolved, getPdfFileName(title));
+        await triggerDownload(`https://api.carenexa.life/${resolved}`, getPdfFileName(title));
       }
     } catch (err: any) {
       setError(err?.message || 'Failed to generate PDF');
